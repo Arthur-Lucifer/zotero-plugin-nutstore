@@ -34,7 +34,7 @@
     "update-deps": "pnpm update --interactive"
   },
   "dependencies": {
-    "@nutstore/sso-js": "^0.0.4",
+    "@nutstore/sso-js": "^0.0.8",
     "@nutstore/sso-wasm": "^0.0.2",
     "bluebird": "^3.7.2",
     "zotero-plugin-toolkit": "^5.1.0-beta.13"

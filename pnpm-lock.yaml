@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@nutstore/sso-js':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.8
+        version: 0.0.8
       '@nutstore/sso-wasm':
         specifier: ^0.0.2
         version: 0.0.2
@@ -335,8 +335,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@nutstore/sso-js@0.0.4':
-    resolution: {integrity: sha512-/HgyBoOeGa1WH1L6DpegyDO+/fsq5afT9wfter6pUq6XcUlPoZWa8TYxOqbfPFRybVYLP8srbp6cJmV93O9XXQ==, tarball: https://npm.pkg.github.com/download/@nutstore/sso-js/0.0.4/44f3c96d900823e7e74d2c2294c641d88f87573e}
+  '@nutstore/sso-js@0.0.8':
+    resolution: {integrity: sha512-jGs2OqHvYM0ChbJRyQItlN+WSgav3N4kaTntctOw9Dh/ok9+2PFuejy0nbwaDQgDlnt9jvjm6JeyGwzrgzUG4Q==, tarball: https://npm.pkg.github.com/download/@nutstore/sso-js/0.0.8/2230384dc1b22f51a24ce4dc25176b8cb6a53ded}
 
   '@nutstore/sso-wasm@0.0.2':
     resolution: {integrity: sha512-+R0TONta7cCnz0RaIecyTpgPtaTj3KWP4G4CECambrR/7KvoFyvgd23XYE4zsEHUVX3/Vcv4rYHwmCCHSyfIfw==, tarball: https://npm.pkg.github.com/download/@nutstore/sso-wasm/0.0.2/aa17b3d3d2f42a37bb75f1c1c8152b42615d580e}
@@ -1998,7 +1998,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@nutstore/sso-js@0.0.4': {}
+  '@nutstore/sso-js@0.0.8': {}
 
   '@nutstore/sso-wasm@0.0.2': {}
 
