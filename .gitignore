@@ -3,8 +3,11 @@
 
 # Node.js
 node_modules
+pnpm-lock.yaml
 yarn.lock
-package-lock.json
+
+# TSC
+tsconfig.tsbuildinfo
 
 # Scaffold
 .env

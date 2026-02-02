@@ -1,7 +1,7 @@
 import { startupVerifyEnhancedWebdav } from './modules/enhanced-webdav'
 import { registerNutstoreSSOProtocol } from './modules/nutstore-sso'
 import { registerPerfObserver, registerPrefs, registerPrefsScripts } from './modules/preference'
-import { initLocale } from './utils/locale'
+import { getString, initLocale } from './utils/locale'
 import { createZToolkit } from './utils/ztoolkit'
 
 async function onStartup() {
@@ -9,9 +9,9 @@ async function onStartup() {
     Zotero.initializationPromise,
     Zotero.unlockPromise,
     Zotero.uiReadyPromise,
-  ])
+  ]);
 
-  initLocale()
+  initLocale();
 
   registerNutstoreSSOProtocol()
 
@@ -20,35 +20,35 @@ async function onStartup() {
   registerPrefs()
 
   await Promise.all(
-    Zotero.getMainWindows().map(win => onMainWindowLoad(win)),
-  )
+    Zotero.getMainWindows().map((win) => onMainWindowLoad(win)),
+  );
 
-  startupVerifyEnhancedWebdav()
+  // Mark initialized as true to confirm plugin loading status
+  // outside of the plugin (e.g. scaffold testing process)
+  addon.data.initialized = true;
 }
 
-async function onMainWindowLoad(win: Window): Promise<void> {
+async function onMainWindowLoad(win: _ZoteroTypes.MainWindow): Promise<void> {
   // Create ztoolkit for every window
-  addon.data.ztoolkit = createZToolkit()
+  addon.data.ztoolkit = createZToolkit();
 
-  // @ts-ignore This is a moz feature
   win.MozXULElement.insertFTLIfNeeded(
     `${addon.data.config.addonRef}-mainWindow.ftl`,
-  )
+  );
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
-  ztoolkit.log('onMainWindowUnload', win)
-  ztoolkit.unregisterAll()
-  addon.data.dialog?.window?.close()
+  ztoolkit.unregisterAll();
+  addon.data.dialog?.window?.close();
 }
 
 function onShutdown(): void {
-  ztoolkit.unregisterAll()
-  addon.data.dialog?.window?.close()
+  ztoolkit.unregisterAll();
+  addon.data.dialog?.window?.close();
   // Remove addon object
-  addon.data.alive = false
-  // @ts-ignore - Plugin instance is not typed
-  delete Zotero[addon.data.config.addonInstance]
+  addon.data.alive = false;
+  // @ts-expect-error - Plugin instance is not typed
+  delete Zotero[addon.data.config.addonInstance];
 }
 
 /**
@@ -56,7 +56,13 @@ function onShutdown(): void {
  * Any operations should be placed in a function to keep this funcion clear.
  */
 async function onNotify(
+  event: string,
+  type: string,
+  ids: Array<string | number>,
+  extraData: { [key: string]: any },
 ) {
+  // You can add your code to the corresponding notify type
+  ztoolkit.log("notify", event, type, ids, extraData);
 }
 
 /**
@@ -67,17 +73,18 @@ async function onNotify(
  */
 async function onPrefsEvent(type: string, data: { [key: string]: any }) {
   switch (type) {
-    case 'load':
-      registerPrefsScripts(data.window)
-      break
+    case "load":
+      registerPrefsScripts(data.window);
+      break;
     default:
+      return;
   }
 }
 
-function onShortcuts() {
+function onShortcuts(type: string) {
 }
 
-function onDialogEvents() {
+function onDialogEvents(type: string) {
 }
 
 // Add your hooks here. For element click, etc.
@@ -93,4 +100,4 @@ export default {
   onPrefsEvent,
   onShortcuts,
   onDialogEvents,
-}
+};
