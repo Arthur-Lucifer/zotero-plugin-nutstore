@@ -33,6 +33,7 @@ jobs:
       - name: Install deps
         env:
           NUTSTORE_PAT: ${{ secrets.GitHub_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pnpm install
 
