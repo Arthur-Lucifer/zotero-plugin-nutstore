@@ -16,10 +16,10 @@
   "homepage": "https://github.com/nutstore/zotero-plugin-nutstore#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nutstore/zotero-plugin-nutstore.git"
+    "url": "git+https://github.com/Arthur-Lucifer/zotero-plugin-nutstore.git"
   },
   "bugs": {
-    "url": "https://github.com/nutstore/zotero-plugin-nutstore/issues"
+    "url": "https://github.com/Arthur-Lucifer/zotero-plugin-nutstore/issues"
   },
   "scripts": {
     "dev": "pnpm run dev:zotero & pnpm run dev:tw",

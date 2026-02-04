@@ -23,7 +23,40 @@ env:
         || secrets.NUTSTORE_PAT }}
 
 jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Debug target repo inference
+        run: |
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          git remote -v
+          node -p "require('./package.json').repository"
+
+      - name: Check token can read releases API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/$GITHUB_REPOSITORY/releases --method GET >/dev/null
+          echo "OK: token can read releases in $GITHUB_REPOSITORY"
+
+      # （可选）如果你想验证“写入权限”，可以创建一个草稿 release 再删除。
+      # 注意：这会实际创建/删除 release，建议只在临时 tag 或测试分支上做。
+      # - name: Check token can create/delete a draft release (optional)
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     id=$(gh api -X POST repos/$GITHUB_REPOSITORY/releases \
+      #       -f tag_name="${GITHUB_REF_NAME}" \
+      #       -f name="preflight-${GITHUB_RUN_ID}" \
+      #       -F draft=true --jq .id)
+      #     echo "created draft release id=$id"
+      #     gh api -X DELETE repos/$GITHUB_REPOSITORY/releases/$id
+      #     echo "deleted draft release id=$id"
+
   create-release:
+    needs: preflight
     uses: zotero-plugin-dev/workflows/.github/workflows/release-plugin.yml@main
     with:
       build: "pnpm run build"
